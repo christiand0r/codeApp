@@ -1,0 +1,75 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html" />
+
+<link rel="import" href="../../bower_components/paper-card/paper-card.html" />
+<link rel="import" href="./code-snippet.html" />
+
+<dom-module id="code-collection">
+  <template>
+    <style>
+      :host {
+        display: block;
+        --paper-card-header-color: #fff;
+        height: calc(100vh - 2rem);
+        overflow: auto;
+      }
+
+      :host::-webkit-scrollbar {
+        width: 0.5rem;
+      }
+
+      :host::-webkit-scrollbar-thumb {
+        background-color: #393e4670;
+        border-radius: 0.5rem;
+      }
+
+      paper-card {
+        display: block;
+        background-color: #393e46;
+        border-radius: 0.5rem;
+        color: #fff;
+        margin-right: 0.5rem;
+      }
+
+      paper-card:not(:first-child) {
+        margin-top: 1rem;
+      }
+
+      paper-card small {
+        display: block;
+        padding: 0.5rem;
+        text-align: right;
+        text-transform: uppercase;
+      }
+
+      @media screen and (max-width: 990px) {
+        :host {
+          height: calc(100vh - 448px);
+        }
+      }
+    </style>
+
+    <template is="dom-repeat" items="{{snippets}}" as="snippet">
+      <paper-card
+        heading="{{snippet.code_description}}"
+        elevation="1"
+        animated-shadow="false"
+      >
+        <div class="card-content">
+          <code-snippet
+            code="[[snippet.code]]"
+            lang="[[snippet.lang]]"
+          ></code-snippet>
+        </div>
+        <small>{{ snippet.lang }}</small>
+      </paper-card>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      is: "code-collection",
+      properties: {
+        snippets: Array,
+      },
+    });
+  </script>
+</dom-module>

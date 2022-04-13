@@ -1,0 +1,6 @@
+{
+  "name": "codeApp",
+  "short_name": "codeApp",
+  "start_url": "/",
+  "display": "standalone"
+}
