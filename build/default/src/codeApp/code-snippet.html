@@ -1,0 +1,45 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!-- Highlight.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/tokyo-night-dark.min.css" integrity="sha512-dSQLLtgaq2iGigmy9xowRshaMzUHeiIUTvJW/SkUpb1J+ImXOPNGAI7ZC8V5/PiN/XN83B8uIk4qET7AMhdC5Q==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<dom-module id="code-snippet">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      code {
+        white-space: pre-line;
+      }
+    </style>
+
+    <pre><code id="output"></code></pre>
+  </template>
+
+  <!-- Highlight.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+  <script>
+    Polymer({
+      is: "code-snippet",
+      properties: {
+        code: String,
+        lang: String,
+      },
+
+      attached() {
+        this.render();
+      },
+
+      //@ Methods
+      render() {
+        this.$.output.innerHTML = this.highlight();
+      },
+      highlight() {
+        return hljs.highlight(this.code, { language: this.lang }).value;
+      },
+    });
+  </script>
+</dom-module>

@@ -1,15 +1,9 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html" />
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../../bower_components/iron-form/iron-form.html" />
-<link rel="import" href="../../bower_components/paper-input/paper-input.html" />
-<link
-  rel="import"
-  href="../../bower_components/paper-input/paper-textarea.html"
-/>
-<link
-  rel="import"
-  href="../../bower_components/paper-button/paper-button.html"
-/>
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="code-form">
   <template>
@@ -39,25 +33,13 @@
     </style>
 
     <form is="iron-form" id="form-code">
-      <paper-input
-        type="text"
-        label="Descripción"
-        id="code_description"
-        class="custom-input"
-      ></paper-input>
+      <paper-input type="text" label="Descripción" name="code_description" class="custom-input" on-change="handleChange"></paper-input>
 
-      <paper-textarea label="Código" id="code" rows="5"></paper-textarea>
+      <paper-textarea label="Código" name="code" rows="5" on-change="handleChange"></paper-textarea>
 
-      <paper-input
-        type="text"
-        label="Lenguaje"
-        id="lang"
-        class="custom-input"
-      ></paper-input>
+      <paper-input type="text" label="Lenguaje" name="lang" on-change="handleChange"></paper-input>
 
-      <paper-button raised class="btn-submit" on-tap="addSnippet"
-        >Guardar Snippet</paper-button
-      >
+      <paper-button raised="" type="submit" class="btn-submit" on-tap="addSnippet">Guardar Snippet</paper-button>
     </form>
     <small class="creator">Created by Door</small>
   </template>
@@ -67,6 +49,12 @@
     hljs.highlightAll();
   </script>
   <script>
+    let snippet = {
+      code: "",
+      code_description: "",
+      lang: "",
+    };
+
     Polymer({
       is: "code-form",
 
@@ -76,29 +64,23 @@
           notify: true,
           // observer:"_snippetsChanged"
         },
-        snippet: {
-          type: Object,
-          value: () => ({
-            code: "",
-            code_description: "",
-            lang: "",
-          }),
-        },
       },
       observers: ["_snippetsChanged(snippets.*)"],
 
       // @Methods
       addSnippet() {
+        // this.snippets = [...this.snippets, snippet];
+
         //Polymer Mutations methods
         // this.push("objectToMutate", "valueToAdd")
-        this.createSnippet();
-        this.push("snippets", this.snippet);
+        this.push("snippets", snippet);
       },
 
-      createSnippet() {
-        this.snippet.code = this.$.code.value;
-        this.snippet.code_description = this.$.code_description.value;
-        this.snippet.lang = this.$.lang.value;
+      handleChange(e) {
+        snippet = {
+          ...snippet,
+          [e.target.name]: e.target.value,
+        };
       },
 
       // @Observers Methods

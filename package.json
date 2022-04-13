@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/christiand0r/codeApp/issues"
   },
-  "homepage": "https://github.com/christiand0r/codeApp#readme"
+  "homepage": "https://github.com/christiand0r/codeApp#readme",
+  "devDependencies": {
+    "polymer-lint": "^0.9.1"
+  }
 }

@@ -1,0 +1,86 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="./code-form.html">
+<link rel="import" href="./code-collection.html">
+
+<dom-module id="code-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 1rem;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .flex {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      .flex-item {
+        width: 100%;
+        border-radius: 0.5rem;
+        flex-grow: 1;
+      }
+
+      .flex-item:last-child {
+        flex-basis: 800px;
+        height: fit-content;
+      }
+
+      @media screen and (max-width: 990px) {
+        .flex {
+          flex-direction: column-reverse;
+        }
+
+        .flex-item:last-child {
+          flex-basis: auto;
+        }
+      }
+    </style>
+
+    <div class="flex">
+      <code-collection class="flex-item" snippets="{{snippets}}"></code-collection>
+
+      <code-form class="flex-item" snippets="{{snippets}}"></code-form>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: "code-app",
+
+      properties: {
+        snippets: {
+          type: Array,
+          value: () => [
+            {
+              code: "console.log('Almacena tus snippets')",
+              code_description: "Almacena tus snippets!",
+              lang: "javascript",
+            },
+          ],
+        },
+      },
+
+      observers: ["_localSnippets(snippets.*)"],
+
+      ready() {
+        if (!localStorage.getItem("codeSnippets")) {
+          localStorage.setItem("codeSnippets", JSON.stringify(this.snippets));
+          return;
+        }
+
+        this.snippets = JSON.parse(localStorage.getItem("codeSnippets"));
+      },
+
+      // @Observers Methods
+      _localSnippets({ base }) {
+        if (base.length <= 1) return;
+        localStorage.setItem("codeSnippets", JSON.stringify(this.snippets));
+      },
+    });
+  </script>
+</dom-module>
