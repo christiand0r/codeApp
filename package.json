@@ -1,0 +1,28 @@
+{
+  "name": "codeapp",
+  "version": "1.0.0",
+  "description": "snippets manager",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "polymer build",
+    "dev": "polymer serve",
+    "bower": "bower i"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christiand0r/codeApp.git"
+  },
+  "keywords": [
+    "polymer",
+    "webcomponents"
+  ],
+  "author": "Door",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christiand0r/codeApp/issues"
+  },
+  "homepage": "https://github.com/christiand0r/codeApp#readme"
+}
